@@ -12,3 +12,100 @@
 - Final Results
 - Performance against SPY
 - Conclusion
+
+1. Executive Summary
+	•	One-paragraph overview: what you did, why, and what the results were.
+	•	Mention the use of HMM, macro regimes, and how your strategy compares to SPY.
+
+# Introduction
+
+In traditional investing, many portfolios rely on a static allocation strategy, such as buying and holding a broad market index like the S&P 500 (SPY). While this passive approach can deliver strong returns over the long run, it exposes investors to significant drawdowns during adverse market conditions. This project aims to outperform passive investing by dynamically adjusting portfolio allocations in response to changing macroeconomic regimes.
+
+To accomplish this, we apply a Hidden Markov Model (HMM) to identify distinct economic regimes—such as bull markets, recessions, and periods of uncertainty—that are not directly observable in the market data but leave underlying statistical patterns. By aligning asset allocation strategies with these inferred regimes, the portfolio can adapt more intelligently to market conditions and better manage risk.
+
+Regime-switching matters in asset allocation because financial markets are not always governed by the same dynamics. For example, strategies that work during a booming economy may fail during a downturn. Incorporating regime awareness allows the portfolio to reduce exposure to risky assets during high-volatility periods and lean into growth opportunities when conditions are favorable. This adaptive approach seeks to improve risk-adjusted returns and deliver smoother performance across economic cycles.
+
+3. Data & Assets
+To capture a broad range of market conditions—including multiple recessions and recoveries—the dataset spans from October 13, 2003 to April 10, 2024. This long-term horizon ensures the model is exposed to various macroeconomic environments, such as the 2008 financial crisis, the COVID-19 shock, and the post-pandemic recovery.
+	•	Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
+	•	Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
+	•	Asset Universe:
+	•	SPY: S&P 500 ETF, representing U.S. equity exposure
+	•	TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
+	•	GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
+
+These assets were selected to create a macro-sensitive portfolio, with each asset responding differently across regimes (e.g., equities in growth, bonds in recessions, and gold during inflation or crisis periods). This diversity enables more effective risk balancing based on detected regime conditions.
+
+4. Methodology
+
+4.1 Hidden Markov Model (HMM)
+
+To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)—a statistical framework that assumes financial markets move through a sequence of hidden states or “regimes” (e.g., bull or bear markets), which can be inferred from observable data like returns and volatility.
+
+**An HMM is well-suited for this task because:**
+	•	It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics.
+	•	It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time.
+
+**Model Configuration:**
+		•	Number of Regimes: 3
+  
+The Hidden Markov Model was trained to identify three distinct macroeconomic regimes based on the relationship between equities, bonds, and gold:
+
+Divergent Macro (Risk-On):
+  - A regime where correlations break down—typically characterized by equities diverging from traditional safe havens. This reflects risk appetite, growth narratives, and investor confidence.
+Flight to Safety (Risk-Off):
+  - A regime where equities begin moving in sync with bonds or gold, signaling market stress and a shift toward capital preservation. Correlation patterns tighten as investors flee riskier assets.
+Transition Zone:
+  - A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
+
+**Features Used for Modeling:**
+	•	A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT).
+	•	The trend component from a seasonal decomposition of this rolling correlation, using Python’s seasonal_decompose() function.
+	•	The first derivative (rate of change) of that trend, capturing momentum in macro relationships rather than price alone.
+
+This feature engineering allows the HMM to focus not on raw price or volatility, but on shifts in inter-asset relationships, which are often early signals of changing macro regimes.
+
+4.2 Regime-Based Portfolio Allocation
+	•	Use of Modern Portfolio Theory (mean-variance optimization)
+	•	Rebalancing rules based on detected regimes
+	•	Handling of regime transitions
+	•	Any derivative overlays or risk management rules (if applicable)
+
+5. Performance Evaluation
+
+5.1 Cumulative Returns Plot
+	•	Compare HMM + MPT portfolio vs. SPY (Buy & Hold)
+	•	Annotate major financial crises and regime shifts
+
+5.2 Sharpe Ratio
+	•	Show annualized Sharpe for both strategies
+	•	Explain risk-adjusted performance
+
+5.3 Optional: Other Metrics
+	•	Max drawdown
+	•	Volatility
+	•	CAGR (Compound Annual Growth Rate)
+
+ 6. Macro Regime Interpretation
+	•	Describe what each regime typically represents (bull, bear, stagflation, etc.)
+	•	Add visuals or shaded graphs to show when each regime occurred
+
+7. Discussion & Insights
+	•	Highlight when your strategy outperformed
+	•	How regime shifts improved risk management or captured upside
+	•	When and why the strategy lagged SPY, if applicable
+
+8. Limitations
+	•	HMM model assumptions (stationarity, Gaussianity)
+	•	Lookahead bias risks
+	•	Ignored transaction costs or taxes
+
+9. Future Improvements
+	•	Try more regimes or train on macroeconomic indicators
+	•	Consider Bayesian HMMs or LSTM regime detection
+	•	Introduce options for tail hedging
+
+10. Conclusion
+	•	Recap: Regime detection + macro-sensitive assets can enhance returns and reduce risk
+	•	Stronger Sharpe ratio and smoother equity curve than passive SPY investing
+
