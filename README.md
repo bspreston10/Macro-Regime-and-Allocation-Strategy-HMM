@@ -36,7 +36,7 @@ To capture a broad range of market conditions—including multiple recessions an
 
 These assets were selected to create a macro-sensitive portfolio, with each asset responding differently across regimes (e.g., equities in growth, bonds in recessions, and gold during inflation or crisis periods). This diversity enables more effective risk balancing based on detected regime conditions.
 
-4. Methodology
+# Methodology
 
 4.1 Hidden Markov Model (HMM)
 
