@@ -1,2 +1,14 @@
 # Macro-Regime-and-Allocation-Strategy-HMM
-Sophisticated portfolio optimization model using Hidden Markov Models [Python]
+
+# TOC
+- Intro
+- Creating HMM
+- Finding Deriv
+- Using MPT
+- Benchmark (SPY)
+- First attempt (without deriv)
+- Second attempt (with deriv)
+- Third Attemp (MPT)
+- Final Results
+- Performance against SPY
+- Conclusion
