@@ -3,8 +3,8 @@
 # TOC
 
 1. Executive Summary
-	•	One-paragraph overview: what you did, why, and what the results were.
-	•	Mention the use of HMM, macro regimes, and how your strategy compares to SPY.
+- One-paragraph overview: what you did, why, and what the results were.
+- Mention the use of HMM, macro regimes, and how your strategy compares to SPY.
 
 # Introduction
 
@@ -18,10 +18,11 @@ Regime-switching matters in asset allocation because financial markets are not a
 
 To capture a broad range of market conditions—including multiple recessions and recoveries—the dataset spans from October 13, 2003 to April 10, 2024. This long-term horizon ensures the model is exposed to various macroeconomic environments, such as the 2008 financial crisis, the COVID-19 shock, and the post-pandemic recovery.
 
-- Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
-- Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
+- **Frequency:** Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
+- **Data Source:** All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
 
 **Asset Universe:**
+
 - SPY: S&P 500 ETF, representing U.S. equity exposure
 - TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
 - GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
