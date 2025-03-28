@@ -27,27 +27,27 @@ Regime-switching matters in asset allocation because financial markets are not a
 
 3. Data & Assets
 To capture a broad range of market conditions—including multiple recessions and recoveries—the dataset spans from October 13, 2003 to April 10, 2024. This long-term horizon ensures the model is exposed to various macroeconomic environments, such as the 2008 financial crisis, the COVID-19 shock, and the post-pandemic recovery.
-	•	Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
-	•	Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
-	•	Asset Universe:
-	•	SPY: S&P 500 ETF, representing U.S. equity exposure
-	•	TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
-	•	GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
+	- Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
+	- Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
+	- Asset Universe:
+	- SPY: S&P 500 ETF, representing U.S. equity exposure
+	- TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
+	- GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
 
 These assets were selected to create a macro-sensitive portfolio, with each asset responding differently across regimes (e.g., equities in growth, bonds in recessions, and gold during inflation or crisis periods). This diversity enables more effective risk balancing based on detected regime conditions.
 
 # Methodology
 
-4.1 Hidden Markov Model (HMM)
+## Hidden Markov Model (HMM)
 
 To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)—a statistical framework that assumes financial markets move through a sequence of hidden states or “regimes” (e.g., bull or bear markets), which can be inferred from observable data like returns and volatility.
 
 **An HMM is well-suited for this task because:**
-	•	It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics.
-	•	It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time.
+	- It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics.
+	- It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time.
 
 **Model Configuration:**
-		•	Number of Regimes: 3
+	- Number of Regimes: 3
   
 The Hidden Markov Model was trained to identify three distinct macroeconomic regimes based on the relationship between equities, bonds, and gold:
 
@@ -58,20 +58,48 @@ Flight to Safety (Risk-Off):
 Transition Zone:
   - A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
 
+**Average Returns of Assets in Regimes:**
+|                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
+| Divergent Macro (Risk-On)  | 0.11%             | 0.22%              | 0.23%             |
+| Flight to Safety (Risk-Off)| 0.05%             | 0.19%              | 0.13%             |
+| Transition Zone            | 0.69%             | -0.36%             | 1.74%             |
+
+
 **Features Used for Modeling:**
-	•	A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT).
-	•	The trend component from a seasonal decomposition of this rolling correlation, using Python’s seasonal_decompose() function.
-	•	The first derivative (rate of change) of that trend, capturing momentum in macro relationships rather than price alone.
+	- A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT).
+	- The trend component from a seasonal decomposition of this rolling correlation.
+	- The first derivative of that trend, capturing momentum in macro relationships rather than price alone.
 
 This feature engineering allows the HMM to focus not on raw price or volatility, but on shifts in inter-asset relationships, which are often early signals of changing macro regimes.
 
-4.2 Regime-Based Portfolio Allocation
-	•	Use of Modern Portfolio Theory (mean-variance optimization)
-	•	Rebalancing rules based on detected regimes
-	•	Handling of regime transitions
-	•	Any derivative overlays or risk management rules (if applicable)
+## Regime-Based Portfolio Allocation
+Once the Hidden Markov Model (HMM) classified the current market regime as Divergent Macro (Risk-On), Transition Zone, or Flight to Safety (Risk-Off), the portfolio dynamically adjusted its allocations using the principles of Modern Portfolio Theory (MPT).
 
-5. Performance Evaluation
+**Modern Portfolio Theory (MPT)**
+
+For each detected regime, I applied mean-variance optimization to compute the optimal weights for the portfolio’s three core assets: SPY, TLT, and gold (GC=F). This approach balances expected returns against covariances, seeking the highest Sharpe ratio for a given regime-specific risk profile.
+	- Inputs: Historical weekly returns and covariances of assets within each regime.
+	- Objective: Maximize the Sharpe ratio by adjusting asset weights to improve risk-adjusted returns.
+
+**Regime-Based Rebalancing**
+
+The portfolio rebalanced only when a new regime was detected by the HMM. This event-driven allocation minimizes transaction costs while still responding to meaningful shifts in macroeconomic conditions.
+	- Risk-On (Divergent Macro): Allocation favored SPY, with reduced exposure to TLT and gold.
+	- Risk-Off (Flight to Safety): Allocation tilted heavily toward TLT and gold, reducing equity exposure.
+	- Transition Zone: Weights were more evenly balanced, favoring diversification across all three assets.
+
+**Handling Regime Transitions**
+
+To prevent excessive turnover or reacting to short-term noise, a buffer period was used before committing to a full reallocation:
+	- Regime changes were only acted upon when the HMM assigned consistently high probability (e.g., >80%) to the new state for at least a few consecutive periods.
+	- This added stability ensured the model responded to structural shifts rather than whipsaws in short-term correlations.
+
+This regime-sensitive allocation strategy enabled the portfolio to lean into favorable conditions and de-risk during periods of instability, enhancing long-term risk-adjusted returns.
+
+# Performance Evaluation
+
+## Finding Optimal Model
+
 
 5.1 Cumulative Returns Plot
 	•	Compare HMM + MPT portfolio vs. SPY (Buy & Hold)
