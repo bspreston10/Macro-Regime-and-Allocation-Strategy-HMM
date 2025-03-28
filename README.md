@@ -23,9 +23,9 @@ To capture a broad range of market conditions—including multiple recessions an
 
 **Asset Universe:**
 
-- SPY: S&P 500 ETF, representing U.S. equity exposure
-- TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
-- GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
+- **SPY:** S&P 500 ETF, representing U.S. equity exposure
+- **TLT:** iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
+- **GC=F:** COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
 
 These assets were selected to create a macro-sensitive portfolio, with each asset responding differently across regimes (e.g., equities in growth, bonds in recessions, and gold during inflation or crisis periods). This diversity enables more effective risk balancing based on detected regime conditions.
 
