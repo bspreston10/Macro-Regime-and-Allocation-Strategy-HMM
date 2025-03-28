@@ -60,7 +60,7 @@ Transition Zone:
 
 **Average Returns of Assets in Regimes:**
 
-|                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
+| Regime                     | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
 -------------------------------------------------------------------------------------------
 | Divergent Macro (Risk-On)  | 0.11%             | 0.22%              | 0.23%             |
 | Flight to Safety (Risk-Off)| 0.05%             | 0.19%              | 0.13%             |
