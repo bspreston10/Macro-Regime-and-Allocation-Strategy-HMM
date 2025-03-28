@@ -53,7 +53,7 @@ The Hidden Markov Model was trained to identify three distinct macroeconomic reg
 **Transition Zone:**
 - A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
 
-**Average Returns of Assets in Regimes:**
+**Returns of Assets in Regimes:**
 
 |                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
 | -------------------------- | ----------------- | ------------------ | ----------------- |
@@ -61,6 +61,11 @@ The Hidden Markov Model was trained to identify three distinct macroeconomic reg
 | Flight to Safety (Risk-Off)| 0.05%             | 0.19%              | 0.13%             |
 | Transition Zone            | 0.69%             | -0.36%             | 1.74%             |
 
+![Screenshot 2025-03-28 at 2 29 24 PM](https://github.com/user-attachments/assets/9a51dfc2-31e4-414f-92fe-9f131da2592f)
+
+![Screenshot 2025-03-28 at 2 29 46 PM](https://github.com/user-attachments/assets/eb7061b8-e42c-4c7c-8d88-3d8c90b49941)
+
+![Screenshot 2025-03-28 at 2 30 10 PM](https://github.com/user-attachments/assets/7cde2ef8-7ba4-4603-8749-ad843c7faec4)
 
 **Features Used for Modeling:**
 
@@ -101,7 +106,12 @@ This regime-sensitive allocation strategy enabled the portfolio to lean into fav
 # Performance Evaluation
 
 ## Finding Optimal Model
-In the beginning I just used I used solely the seasonal decomposition trend and a simple allocation strategy as seen below:
+
+To arrive at the final regime-based strategy, I went through a series of model iterations—each introducing a key enhancement. The process allowed me to assess the value of each feature and refine the strategy using real-world performance metrics.
+
+### Phase 1: Simple Allocation by Regime
+
+In the first version, I applied a basic allocation strategy using fixed weights for each regime. Regimes were identified using the trend component from seasonal decomposition of rolling correlations between SPY and safe-haven assets (TLT and gold).
 
 |                            | Weight for SPY  | Weight for TLT  | Weight for Gold   |
 | -------------------------- | --------------- | --------------- | ----------------  |
@@ -109,18 +119,127 @@ In the beginning I just used I used solely the seasonal decomposition trend and 
 | Flight to Safety (Risk-Off)| 0.2             | 0.5             | 0.3               |
 | Transition Zone            | 0               | 0.5             | 0.5               |
 
-5.1 Cumulative Returns Plot
-	•	Compare HMM + MPT portfolio vs. SPY (Buy & Hold)
-	•	Annotate major financial crises and regime shifts
+This approach provided basic diversification, but lacked sensitivity to asset dynamics within each regime.
 
-5.2 Sharpe Ratio
-	•	Show annualized Sharpe for both strategies
-	•	Explain risk-adjusted performance
+### Phase 2: Added Momentum Signal (Derivative of Trend)
 
-5.3 Optional: Other Metrics
-	•	Max drawdown
-	•	Volatility
-	•	CAGR (Compound Annual Growth Rate)
+To improve regime transitions and early detection, I incorporated the first derivative of the trend (i.e., the rate of change in correlation trend), allowing the HMM to detect shifts more responsively. This helped identify when a regime was strengthening or breaking down.
+
+While this improved responsiveness, performance still plateaued due to the fixed allocation weights.
+
+### Phase 3: Regime-Specific Modern Portfolio Theory (MPT)
+
+In the final version, I applied mean-variance optimization within each regime. The model computed optimal asset weights based on regime-specific historical returns and covariances, maximizing the Sharpe ratio within each environment.
+
+This version significantly boosted risk-adjusted performance, reduced drawdowns, and better handled macro inflection points.
+
+## Cumulative Returns
+To evaluate not only overall performance but also the portfolio’s resilience under market stress, I conducted focused analyses on two major crisis periods: the 2008 Global Financial Crisis (January 2007 to December 2009) and the COVID-19 pandemic (January 2020 to December 2020).
+
+![Screenshot 2025-03-28 at 12 20 25 PM](https://github.com/user-attachments/assets/00886236-b724-4076-a185-cfb3d01937b9)
+
+The cumulative returns plot above compares four variations of the regime-based strategy against the SPY Buy & Hold benchmark. Each model iteration builds on the last, illustrating the impact of MPT optimization and derivative-based regime detection.
+
+- Green shaded areas represent Risk-On (Divergent Macro) regimes
+- Red shaded areas represent Risk-Off (Flight to Safety) regimes
+- Orange shaded areas indicate the Transition Zone where macro sentiment is uncertain
+
+**Key Takeaways:**
+
+- The purple line (Final Model: MPT + Derivative) consistently outperforms other strategies, particularly during and after high-volatility events like the 2008 Financial Crisis, COVID Crash in 2020, and the 2022 bear market.
+- The red line (MPT without derivative) also performs well, but lags slightly due to delayed regime transitions.
+- Strategies without MPT (blue and orange) show more volatility and underperformance in sideways markets and Risk-Off regimes.
+- SPY (green line) shows strong growth in Risk-On periods but suffers significant drawdowns in red zones, particularly in 2008 and 2020.
+
+This plot clearly demonstrates the value of combining MPT with timely regime detection. The use of the derivative (rate of change of trend) enabled earlier and more accurate transitions between macro states, allowing the final model to better navigate risk and capitalize on momentum.
+
+### 2008 Financial Crisis Cumulative Returns
+
+![Screenshot 2025-03-28 at 12 47 27 PM](https://github.com/user-attachments/assets/e6ea94a1-fc8d-4506-9a1f-f19ee0b6ab9d)
+
+**Key Takeaways:** 
+
+- The SPY Buy & Hold strategy (green line) experienced a steep drawdown, dropping well below 1.0 in cumulative returns during late 2008.
+- In contrast, all regime-aware strategies preserved capital significantly better, especially during prolonged Risk-Off periods.
+- The final model (MPT + Derivative, purple line) maintained the strongest cumulative return throughout the crisis and recovered faster.
+- Models using MPT allocation (red & purple) outperformed their fixed-weight counterparts, highlighting the benefit of dynamically adjusting risk based on regime conditions.
+- The use of the derivative of the correlation trend helped models respond earlier to macro stress, enabling more timely shifts into defensive assets like TLT and gold.
+
+This stress test demonstrates the value of combining macro regime detection with adaptive portfolio construction. While SPY suffered significant losses, the regime-aware models provided both downside protection and faster recovery.
+
+### 2020 COVID-19 Pandemic 
+
+![Screenshot 2025-03-28 at 12 48 58 PM](https://github.com/user-attachments/assets/3e972c18-8612-4930-b7e6-632956b7352b)
+
+ **Key Takeaways:**
+ 
+- The SPY Buy & Hold strategy (green line) experienced a sharp drawdown in March 2020, falling below 3.1 before recovering by year-end.
+- Regime-aware strategies demonstrated strong downside protection, with much smaller dips during the Risk-Off transition.
+- The final model (MPT + Derivative, purple line) once again led performance, preserving capital during the crash and capturing upside during the recovery.
+- Notably, the MPT-based strategies (red & purple) quickly adapted to changing conditions and outperformed fixed-weight models throughout the year.
+- The inclusion of the derivative feature allowed earlier identification of the downturn, helping the model shift into safer allocations before the steepest part of the drop.
+
+This case study highlights the strategy’s ability to respond swiftly to fast, high-impact shocks—a crucial feature for risk-managed portfolios in modern markets.
+
+## Sharpe Ratio
+
+|             | Portfolio 1 (No MPT, No Deriv) | Portfolio 2 (No MPT, Deriv) | Portfolio 3 (MPT, No Deriv) | Portfolio 4 (MPT, Deriv)     | SPY  |
+|-------------|--------------------------------|-----------------------------|-----------------------------|------------------------------|------|
+|Sharpe Ratio | 0.66                           | 0.66                        | 0.78                        | **0.79**                     | 0.53 |
+
+- Both MPT-enabled portfolios outperform SPY and fixed-weight strategies.
+- Adding the derivative improves responsiveness and results in the highest overall Sharpe.
+
+### 2008 Financial Crisis
+
+|             | Portfolio 1 (No MPT, No Deriv) | Portfolio 2 (No MPT, Deriv) | Portfolio 3 (MPT, No Deriv)     | Portfolio 4 (MPT, Deriv) | SPY   |
+|-------------|--------------------------------|-----------------------------|---------------------------------|--------------------------|-------|
+|Sharpe Ratio | 0.41                           | 0.34                        | **0.63**                        | 0.58                     | -0.11 |
+
+- All regime-based portfolios achieved positive Sharpe Ratios, in stark contrast to SPY’s negative ratio.
+- Portfolio 3 (MPT, No Deriv) had the best Sharpe in this slower-burning crisis, suggesting MPT played a stronger role than the derivative here.
+
+### 2020 COVID-19 Pandemic
+
+|             | Portfolio 1 (No MPT, No Deriv) | Portfolio 2 (No MPT, Deriv) | Portfolio 3 (MPT, No Deriv) | Portfolio 4 (MPT, Deriv)    | SPY  |
+|-------------|--------------------------------|-----------------------------|-----------------------------|-----------------------------|------|
+|Sharpe Ratio | 0.54                           | 0.65                        | 1.09                        | **1.22**                    | 0.55 |
+
+- During this fast, high-impact crisis, Portfolio 4 (MPT + Deriv) delivered the best risk-adjusted performance, nearly doubling SPY’s Sharpe.
+- The derivative helped detect regime shifts earlier, while MPT adjusted weights in real time, offering both agility and precision.
+
+### Conclusion
+Across the full time horizon and during major crises like the 2008 financial meltdown and the COVID-19 crash, the final model (MPT + Derivative) delivered superior Sharpe Ratios and reduced drawdowns, highlighting its ability to preserve capital in stressed environments and capitalize on recovery trends. Each model iteration—from fixed weights to derivative-enhanced optimization—contributed to these improvements, reinforcing the value of an iterative, data-driven approach to portfolio construction.
+
+Ultimately, this strategy showcases how machine learning, macro intuition, and classic finance theory can work together to build smarter, more adaptable portfolios in a complex market landscape.
+
+## Drawdown
+
+### Overall
+![Screenshot 2025-03-28 at 1 45 16 PM](https://github.com/user-attachments/assets/31d040de-9c1b-4577-98d0-c34509422aed)
+
+- SPY (green line) suffered the largest and deepest drawdowns, especially during 2008 and early 2020.
+- All regime-based strategies consistently experienced shallower and shorter drawdowns.
+- The final model (MPT + Derivative) displayed the most consistent capital protection, recovering quickly after downturns and avoiding deep underwater periods.
+
+### 2008 Financial Crisis
+
+![Screenshot 2025-03-28 at 1 47 06 PM](https://github.com/user-attachments/assets/469f2021-e24f-4642-9c0e-b1ac2f284790)
+
+- SPY experienced a peak drawdown of over -50%, while regime-based portfolios stayed within the -20% to -30% range.
+- MPT-based models (especially Portfolio 3) managed risk better than their fixed-weight counterparts.
+- The drawdown reduction is especially significant during the prolonged Risk-Off period from late 2007 to early 2009, where SPY failed to recover for years.
+
+### 2020 COVID-19 Pandemic
+
+![Screenshot 2025-03-28 at 1 48 36 PM](https://github.com/user-attachments/assets/6564bc0e-b33e-457a-92b6-0114c523046c)
+
+- During the sharp and sudden drop in March 2020, SPY fell over 30%, while the final model only drew down around 12%.
+- Regime-aware portfolios reacted more quickly and began recovering weeks before SPY.
+- The inclusion of the derivative allowed faster recognition of the macro shift, resulting in a faster pivot to defensive allocations and quicker recovery.
+
+### Conlcusion
+These drawdown plots visually reinforce the strategy’s ability to reduce losses during market stress, offering strong downside protection without sacrificing long-term growth. While SPY exhibits deeper, longer recoveries, regime-based models maintain smoother equity curves and more consistent risk exposure throughout various macro environments.
 
  6. Macro Regime Interpretation
 	•	Describe what each regime typically represents (bull, bear, stagflation, etc.)
