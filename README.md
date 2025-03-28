@@ -60,39 +60,20 @@ These assets were selected to create a macro-sensitive portfolio, with each asse
 
 ## Hidden Markov Model (HMM)
 
-To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)—a statistical framework that assumes financial markets move through a sequence of hidden states or “regimes” (e.g., bull or bear markets), which can be inferred from observable data like returns and volatility.
+To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)—a statistical framework that assumes financial markets move through a sequence of hidden states or “regimes” (e.g., bull or bear markets), which can be inferred from observable data like returns and volatility. An HMM is well-suited for this task because it models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics, and it captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time/
 
-**An HMM is well-suited for this task because:**
-
-- It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics
-- It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time
-
-**Model Configuration:**
+### Model Configuration:
   
 The Hidden Markov Model was trained to identify three distinct macroeconomic regimes based on the relationship between equities, bonds and gold:
 
-**Divergent Macro (Risk-On):**
-- A regime where correlations break down—typically characterized by equities diverging from traditional safe havens. This reflects risk appetite, growth narratives, and investor confidence.
+- **Divergent Macro (Risk-On):**
+	- A regime where correlations break down—typically characterized by equities diverging from traditional safe havens. This reflects risk appetite, growth narratives, and investor confidence.
 
-**Flight to Safety (Risk-Off):**
-- A regime where equities begin moving in sync with bonds or gold, signaling market stress and a shift toward capital preservation. Correlation patterns tighten as investors flee riskier assets.
+- **Flight to Safety (Risk-Off):**
+	- A regime where equities begin moving in sync with bonds or gold, signaling market stress and a shift toward capital preservation. Correlation patterns tighten as investors flee riskier assets.
 
-**Transition Zone:**
-- A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
-
-**Returns of Assets in Regimes:**
-
-|                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
-| -------------------------- | ----------------- | ------------------ | ----------------- |
-| Divergent Macro (Risk-On)  | 0.11%             | 0.22%              | 0.23%             |
-| Flight to Safety (Risk-Off)| 0.05%             | 0.19%              | 0.13%             |
-| Transition Zone            | 0.69%             | -0.36%             | 1.74%             |
-
-![Screenshot 2025-03-28 at 2 29 24 PM](https://github.com/user-attachments/assets/9a51dfc2-31e4-414f-92fe-9f131da2592f)
-
-![Screenshot 2025-03-28 at 2 29 46 PM](https://github.com/user-attachments/assets/eb7061b8-e42c-4c7c-8d88-3d8c90b49941)
-
-![Screenshot 2025-03-28 at 2 30 10 PM](https://github.com/user-attachments/assets/7cde2ef8-7ba4-4603-8749-ad843c7faec4)
+- **Transition Zone:**
+	- A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
 
 ## Features Used for Modeling:
 
@@ -129,6 +110,20 @@ To prevent excessive turnover or reacting to short-term noise, a buffer period w
 - This added stability ensured the model responded to structural shifts rather than whipsaws in short-term correlations.
 
 This regime-sensitive allocation strategy enabled the portfolio to lean into favorable conditions and de-risk during periods of instability, enhancing long-term risk-adjusted returns.
+
+## Returns of Assets in Regimes:
+
+|                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
+| -------------------------- | ----------------- | ------------------ | ----------------- |
+| Divergent Macro (Risk-On)  | 0.11%             | 0.22%              | 0.23%             |
+| Flight to Safety (Risk-Off)| 0.05%             | 0.19%              | 0.13%             |
+| Transition Zone            | 0.69%             | -0.36%             | 1.74%             |
+
+![Screenshot 2025-03-28 at 2 29 24 PM](https://github.com/user-attachments/assets/9a51dfc2-31e4-414f-92fe-9f131da2592f)
+
+![Screenshot 2025-03-28 at 2 29 46 PM](https://github.com/user-attachments/assets/eb7061b8-e42c-4c7c-8d88-3d8c90b49941)
+
+![Screenshot 2025-03-28 at 2 30 10 PM](https://github.com/user-attachments/assets/7cde2ef8-7ba4-4603-8749-ad843c7faec4)
 
 
 ## Finding Optimal Model
