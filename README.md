@@ -25,14 +25,17 @@ To accomplish this, we apply a Hidden Markov Model (HMM) to identify distinct ec
 
 Regime-switching matters in asset allocation because financial markets are not always governed by the same dynamics. For example, strategies that work during a booming economy may fail during a downturn. Incorporating regime awareness allows the portfolio to reduce exposure to risky assets during high-volatility periods and lean into growth opportunities when conditions are favorable. This adaptive approach seeks to improve risk-adjusted returns and deliver smoother performance across economic cycles.
 
-3. Data & Assets
+# Data & Assets
+
 To capture a broad range of market conditions—including multiple recessions and recoveries—the dataset spans from October 13, 2003 to April 10, 2024. This long-term horizon ensures the model is exposed to various macroeconomic environments, such as the 2008 financial crisis, the COVID-19 shock, and the post-pandemic recovery.
-	- Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
-	- Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
-	- Asset Universe:
-	- SPY: S&P 500 ETF, representing U.S. equity exposure
-	- TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
-	- GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
+
+- Frequency: Weekly returns (52 observations per year) were used to smooth out short-term noise while preserving regime dynamics.
+- Data Source: All asset price data was collected using the yfinance Python API, allowing for seamless integration with the modeling pipeline.
+
+**Asset Universe:**
+- SPY: S&P 500 ETF, representing U.S. equity exposure
+- TLT: iShares 20+ Year Treasury Bond ETF, representing long-term government bonds
+- GC=F: COMEX Gold Futures, providing a hedge against inflation and macro uncertainty
 
 These assets were selected to create a macro-sensitive portfolio, with each asset responding differently across regimes (e.g., equities in growth, bonds in recessions, and gold during inflation or crisis periods). This diversity enables more effective risk balancing based on detected regime conditions.
 
@@ -43,11 +46,11 @@ These assets were selected to create a macro-sensitive portfolio, with each asse
 To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)—a statistical framework that assumes financial markets move through a sequence of hidden states or “regimes” (e.g., bull or bear markets), which can be inferred from observable data like returns and volatility.
 
 **An HMM is well-suited for this task because:**
-	- It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics.
-	- It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time.
+
+- It models the market as a probabilistic process, where each hidden state generates returns with its own statistical characteristics.
+- It captures time-dependent dynamics, learning how likely the market is to transition from one regime to another over time.
 
 **Model Configuration:**
-	- Number of Regimes: 3
   
 The Hidden Markov Model was trained to identify three distinct macroeconomic regimes based on the relationship between equities, bonds, and gold:
 
