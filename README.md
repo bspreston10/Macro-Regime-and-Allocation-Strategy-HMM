@@ -70,9 +70,10 @@ The Hidden Markov Model was trained to identify three distinct macroeconomic reg
 
 
 **Features Used for Modeling:**
-	- A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT).
-	- The trend component from a seasonal decomposition of this rolling correlation.
-	- The first derivative of that trend, capturing momentum in macro relationships rather than price alone.
+
+	A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT).
+	The trend component from a seasonal decomposition of this rolling correlation.
+	The first derivative of that trend, capturing momentum in macro relationships rather than price alone.
 
 This feature engineering allows the HMM to focus not on raw price or volatility, but on shifts in inter-asset relationships, which are often early signals of changing macro regimes.
 
