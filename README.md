@@ -1,14 +1,14 @@
 # Macro-Regime-and-Allocation-Strategy-HMM
 
 # Table of Contents
-[Executive Summary](#executive-summary)
-[Introduction](#introduction)
-[Data & Assets](#data-&-assets)
-[Methodology](#methodlogy)
-[Performance Evaluation](#performance-evaluation)
-[Discussion & Insights](#discussion-&-insights)
-[Limitations](#limitations)
-[Conclusion](#conclusion)
+- [Executive Summary](#executive-summary)
+- [Introduction](#introduction)
+- [Data & Assets](#data-&-assets)
+- [Methodology](#methodlogy)
+- [Performance Evaluation](#performance-evaluation)
+- [Discussion & Insights](#discussion-&-insights)
+- [Limitations](#limitations)
+- [Conclusion](#conclusion)
 
 
 # Executive Summary
