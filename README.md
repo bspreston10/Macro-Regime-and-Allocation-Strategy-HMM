@@ -91,10 +91,7 @@ Once the Hidden Markov Model classified the current market regime as Divergent M
 
 For each detected regime, I applied mean-variance optimization to compute the optimal weights for the portfolio’s three assets: SPY, TLT, and gold (GC=F). This approach balances expected returns against covariances, seeking the highest Sharpe ratio for a given regime-specific risk profile.
 
-- **Inputs:** Historical weekly returns and covariances of assets within each regime
-- **Objective:** Maximize the Sharpe ratio by adjusting asset weights to improve risk-adjusted returns
-
-**Regime-Based Rebalancing**
+### Regime-Based Rebalancing
 
 The portfolio rebalanced only when a new regime was detected by the HMM. This event-driven allocation minimizes transaction costs while still responding to meaningful shifts in macroeconomic conditions.
 
@@ -102,7 +99,7 @@ The portfolio rebalanced only when a new regime was detected by the HMM. This ev
 - **Risk-Off (Flight to Safety):** Allocation tilted heavily toward TLT and gold, reducing equity exposure.
 - **Transition Zone:** Weights were more evenly balanced, favoring diversification across all three assets.
 
-**Handling Regime Transitions**
+### Handling Regime Transitions
 
 To prevent excessive turnover or reacting to short-term noise, a buffer period was used before committing to a full reallocation:
 
