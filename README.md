@@ -74,7 +74,7 @@ This feature engineering allows the HMM to focus not on raw price or volatility,
 
 Once the Hidden Markov Model classified the current market regime as Divergent Macro (Risk-On), Transition Zone, or Flight to Safety (Risk-Off), the portfolio dynamically adjusted its allocations using the principles of Modern Portfolio Theory (MPT).
 
-**Modern Portfolio Theory (MPT)**
+#### Modern Portfolio Theory (MPT)
 
 For each detected regime, I applied mean-variance optimization to compute the optimal weights for the portfolio’s three assets: SPY, TLT, and gold (GC=F). This approach balances expected returns against covariances, seeking the highest Sharpe ratio for a given regime-specific risk profile.
 
