@@ -59,6 +59,7 @@ Transition Zone:
   - A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
 
 **Average Returns of Assets in Regimes:**
+
 |                            | TLT Weekly Return | GC=F Weekly Return | SPY Weekly Return |
 -------------------------------------------------------------------------------------------
 | Divergent Macro (Risk-On)  | 0.11%             | 0.22%              | 0.23%             |
