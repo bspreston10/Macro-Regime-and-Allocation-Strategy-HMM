@@ -67,7 +67,7 @@ The Hidden Markov Model was trained to identify three distinct macroeconomic reg
 
 ![Screenshot 2025-03-28 at 2 30 10 PM](https://github.com/user-attachments/assets/7cde2ef8-7ba4-4603-8749-ad843c7faec4)
 
-**Features Used for Modeling:**
+## Features Used for Modeling:
 
 - A rolling correlation of equity prices (SPY) with gold (GC=F) and long-term treasuries (TLT)
 - The trend component from a seasonal decomposition of this rolling correlation
