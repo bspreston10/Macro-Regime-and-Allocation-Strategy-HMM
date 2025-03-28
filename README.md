@@ -41,7 +41,7 @@ To accomplish this, we apply a Hidden Markov Model (HMM) to identify distinct ec
 
 Regime-switching matters in asset allocation because financial markets are not always governed by the same dynamics. For example, strategies that work during a booming economy may fail during a downturn. Incorporating regime awareness allows the portfolio to reduce exposure to risky assets during high-volatility periods and lean into growth opportunities when conditions are favorable. This adaptive approach seeks to improve risk-adjusted returns and deliver smoother performance across economic cycles.
 
-# Data/Assets
+# Data & Assets
 
 To capture a broad range of market conditions, including multiple recessions and recoveries, the dataset spans from October 13, 2003 to April 10, 2024. This long-term horizon ensures the model is exposed to various macroeconomic environments, such as the 2008 financial crisis, the COVID-19 shock, and the post-pandemic recovery.
 
@@ -270,7 +270,7 @@ Ultimately, this strategy showcases how machine learning, macro intuition, and c
 ### Conlcusion
 These drawdown plots visually reinforce the strategy’s ability to reduce losses during market stress, offering strong downside protection without sacrificing long-term growth. While SPY exhibits deeper, longer recoveries, regime-based models maintain smoother equity curves and more consistent risk exposure throughout various macro environments.
 
-# Discussion/Insights
+# Discussion & Insights
 
 ## When the Stratigies Outperformed the S&P
 
