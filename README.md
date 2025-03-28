@@ -101,7 +101,13 @@ This regime-sensitive allocation strategy enabled the portfolio to lean into fav
 # Performance Evaluation
 
 ## Finding Optimal Model
+In the beginning I just used I used solely the seasonal decomposition trend and a simple allocation strategy as seen below:
 
+|                            | Weight for SPY  | Weight for TLT  | Weight for Gold   |
+| -------------------------- | --------------- | --------------- | ----------------  |
+| Divergent Macro (Risk-On)  |      0.7        | 0.1             | 0.2               |
+| Flight to Safety (Risk-Off)| 0.2             | 0.5             | 0.3               |
+| Transition Zone            | 0               | 0.5             | 0.5               |
 
 5.1 Cumulative Returns Plot
 	•	Compare HMM + MPT portfolio vs. SPY (Buy & Hold)
