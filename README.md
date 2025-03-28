@@ -3,10 +3,10 @@
 # Table of Contents
 - [Executive Summary](#executive-summary)
 - [Introduction](#introduction)
-- [Data & Assets](#data/assets)
-- [Methodology](#methodlogy)
+- [Data & Assets](#data--assets)
+- [Methodology](#methodology)
 - [Performance Evaluation](#performance-evaluation)
-- [Discussion & Insights](#discussion/insights)
+- [Discussion & Insights](#discussion--insights)
 - [Limitations](#limitations)
 - [Conclusion](#conclusion)
 
