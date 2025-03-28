@@ -51,11 +51,13 @@ To detect shifts in market conditions, we employed a Hidden Markov Model (HMM)â€
   
 The Hidden Markov Model was trained to identify three distinct macroeconomic regimes based on the relationship between equities, bonds, and gold:
 
-Divergent Macro (Risk-On):
+**Divergent Macro (Risk-On):**
   - A regime where correlations break downâ€”typically characterized by equities diverging from traditional safe havens. This reflects risk appetite, growth narratives, and investor confidence.
-Flight to Safety (Risk-Off):
+
+**Flight to Safety (Risk-Off):**
   - A regime where equities begin moving in sync with bonds or gold, signaling market stress and a shift toward capital preservation. Correlation patterns tighten as investors flee riskier assets.
-Transition Zone:
+
+**Transition Zone:**
   - A regime in between Risk-On and Risk-Off. Often marked by unstable or shifting correlations, this phase represents uncertainty or the beginning of a macro inflection point.
 
 **Average Returns of Assets in Regimes:**
