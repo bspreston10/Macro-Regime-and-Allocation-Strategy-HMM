@@ -130,7 +130,6 @@ To prevent excessive turnover or reacting to short-term noise, a buffer period w
 
 This regime-sensitive allocation strategy enabled the portfolio to lean into favorable conditions and de-risk during periods of instability, enhancing long-term risk-adjusted returns.
 
-# Performance Evaluation
 
 ## Finding Optimal Model
 
@@ -159,6 +158,8 @@ While this improved responsiveness, performance still plateaued due to the fixed
 In the final version, I applied mean-variance optimization within each regime. The model computed optimal asset weights based on regime-specific historical returns and covariances, maximizing the Sharpe ratio within each environment.
 
 This version significantly boosted risk-adjusted performance, reduced drawdowns, and better handled macro inflection points.
+
+# Performance Evaluation
 
 ## Cumulative Returns
 To evaluate not only overall performance but also the portfolio’s resilience under market stress, I conducted focused analyses on two major crisis periods: the 2008 Global Financial Crisis (January 2007 to December 2009) and the COVID-19 pandemic (January 2020 to December 2020).
