@@ -340,7 +340,7 @@ These enhancements would move the project from a research framework to a robust,
 
 # Conclusion
 
-This project demonstrates how combining regime detection with macro-sensitive asset allocation can offer a powerful alternative to traditional passive investing. By leveraging a Hidden Markov Model trained on inter-asset relationships—specifically between equities, bonds, and gold—the strategy dynamically adjusts portfolio weights based on the underlying macroeconomic environment.
+This project demonstrates how combining regime detection with macro-sensitive asset allocation can offer a powerful alternative to traditional passive investing. By leveraging a Hidden Markov Model trained on inter-asset relationships specifically between equities, bonds, and gold, the strategy dynamically adjusts portfolio weights based on the underlying macroeconomic environment.
 
 Through multiple iterations, including the integration of trend derivatives and Modern Portfolio Theory, the final model achieved a higher Sharpe ratio, shallower drawdowns, and a smoother equity curve than a SPY Buy & Hold approach. Most importantly, the strategy demonstrated resilience during periods of extreme stress, such as the 2008 financial crisis and the COVID-19 crash, while still participating in market rallies during Risk-On regimes.
 
